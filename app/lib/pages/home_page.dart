@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ElevatedButtons extends StatefulWidget {
   const ElevatedButtons({super.key});
@@ -39,12 +40,8 @@ class HomePage extends StatelessWidget {
   Widget _buildUI(BuildContext context){
     return Stack(
       children: [
-        _backgroundGradient(
-          context,
-        ),
-        _buttons(
-          context,
-        )
+        _backgroundGradient(context,),
+        _buttons(context,)
       ],
     );
   }
@@ -121,46 +118,90 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buttons(BuildContext context){
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: transparent,
         body: Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3, right: 20, left: 20),
-            child: GridView.count(
-              shrinkWrap: false,
-              crossAxisCount: 2, // Two buttons per row
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 1.2, // Adjust height-to-width ratio
-              children: [
-                CategoryButton(
-                  title: "Exercise",
-                  icon: Icons.directions_run,
-                  bgColor: Color(0x99FFBF69),
-                  onPressed: () {},
+          child: Stack(
+            children: [
+
+              // Buttons
+              Padding(
+                padding: EdgeInsets.only(top: screenHeight*0.35, right: 20, left: 20),
+                child: GridView.count(
+                  shrinkWrap: false,
+                  crossAxisCount: 2, // Two buttons per row
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 1.2, // Adjust height-to-width ratio
+                  children: [
+                    CategoryButton(
+                      title: "Exercise",
+                      icon: Icons.directions_run,
+                      bgColor: Color(0x99FFBF69),
+                      onPressed: () {},
+                      iconImg: "asset/homepage/footsteps.png",
+                    ),
+                    CategoryButton(
+                      title: "Food",
+                      icon: Icons.restaurant,
+                      bgColor: Color(0x99FB9100),
+                      onPressed: () {},
+                      iconImg: "asset/homepage/recipe_book.png",
+                    ),
+                    CategoryButton(
+                      title: "Profile",
+                      icon: Icons.person,
+                      bgColor: Color(0x99BEF1ED),
+                      onPressed: () {},
+                      iconImg: "asset/homepage/resume.png",
+                    ),
+                    CategoryButton(
+                      title: "Mood",
+                      icon: Icons.emoji_emotions,
+                      bgColor: Color(0x992EC4B6),
+                      onPressed: () {},
+                      iconImg: "asset/homepage/fern.png",
+                    ),
+                  ],
                 ),
-                CategoryButton(
-                  title: "Food",
-                  icon: Icons.restaurant,
-                  bgColor: Color(0x99FB9100),
-                  onPressed: () {},
+              ),
+
+              //Profile Picture
+              Padding(
+                padding: EdgeInsets.only(top: screenHeight*0.06, left: screenWidth*0.1),
+                child:ClipOval(
+                  child: Container(
+                    width: screenHeight*0.25,
+                    height: screenHeight*0.25,
+                    decoration: BoxDecoration(
+                      color: Colors.cyan,
+                      image: DecorationImage(
+                        image: AssetImage("asset/homepage/default_profile.png"),
+                        fit: BoxFit.cover, 
+                      ),
+                    ),
+                  ),
+                )
+              ),
+
+              //Welcome User
+              Padding(
+                padding: EdgeInsets.only(top: screenHeight*0.09, left: screenWidth*0.57),
+                child: Text(
+                  "Welcome Back,\nFellow User...",
+                  style: GoogleFonts.poppins(
+                    color: Colors.black87,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-                CategoryButton(
-                  title: "Profile",
-                  icon: Icons.person,
-                  bgColor: Color(0x99BEF1ED),
-                  onPressed: () {},
-                ),
-                CategoryButton(
-                  title: "Mood",
-                  icon: Icons.emoji_emotions,
-                  bgColor: Color(0x992EC4B6),
-                  onPressed: () {},
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -174,12 +215,14 @@ class CategoryButton extends StatelessWidget {
   final IconData icon;
   final Color bgColor;
   final VoidCallback onPressed;
+  final String iconImg;
 
   const CategoryButton({
     required this.title,
     required this.icon,
     required this.bgColor,
     required this.onPressed,
+    required this.iconImg,
   });
 
   @override
@@ -203,6 +246,10 @@ class CategoryButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: bgColor,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                image: DecorationImage(
+                  image: AssetImage(iconImg),
+                  fit: BoxFit.cover,
+                ),
               ),
               child: Align(
                 alignment: Alignment(-0.9,-0.85),
@@ -250,9 +297,6 @@ class CategoryButton extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: 
           ),
         ],
       ),
