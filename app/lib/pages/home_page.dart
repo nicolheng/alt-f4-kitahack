@@ -143,28 +143,28 @@ class HomePage extends StatelessWidget {
                       title: "Exercise",
                       icon: Icons.directions_run,
                       bgColor: Color(0x99FFBF69),
-                      onPressed: () {},
+                      onPressed: () {print("Exercising");},
                       iconImg: "asset/homepage/footsteps.png",
                     ),
                     CategoryButton(
                       title: "Food",
                       icon: Icons.restaurant,
                       bgColor: Color(0x99FB9100),
-                      onPressed: () {},
+                      onPressed: () {print("Eating");},
                       iconImg: "asset/homepage/recipe_book.png",
                     ),
                     CategoryButton(
                       title: "Profile",
                       icon: Icons.person,
                       bgColor: Color(0x99BEF1ED),
-                      onPressed: () {},
+                      onPressed: () {print("Checking");},
                       iconImg: "asset/homepage/resume.png",
                     ),
                     CategoryButton(
                       title: "Mood",
                       icon: Icons.emoji_emotions,
                       bgColor: Color(0x992EC4B6),
-                      onPressed: () {},
+                      onPressed: () {print("Feeling");},
                       iconImg: "asset/homepage/fern.png",
                     ),
                   ],
@@ -200,6 +200,13 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
+              ),
+
+              // Settings Button
+              SettingButton(
+                title: "Settings",
+                bgColor: Color(0x80C6F1FF),
+                onPressed: () {print("set");},
               ),
             ],
           ),
@@ -299,6 +306,62 @@ class CategoryButton extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+//Settings Button
+class SettingButton extends StatelessWidget{
+  final String title;
+  final Color bgColor;
+  final VoidCallback onPressed;
+
+  const SettingButton({
+    required this.title,
+    required this.bgColor,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: SizedBox(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height*0.1,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0x00FFFFFF), // Card background
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 5,
+            padding: EdgeInsets.zero,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: bgColor,
+              border: Border(
+                top: BorderSide(
+                  color: Colors.white,
+                  width: 3,
+                )
+              )
+            ),
+            child: Center(
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
