@@ -1,31 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ElevatedButtons extends StatefulWidget {
-  const ElevatedButtons({super.key});
-
-  @override
-  State<ElevatedButtons> createState() => _ElevatedButtonState();
-}
-
-class _ElevatedButtonState extends State<ElevatedButtons> {
-  @override
-  Widget build(BuildContext context) {
-    final ButtonStyle style = ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
-
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ElevatedButton(style: style, onPressed: () {
-            Navigator.pushNamed(context, "/login");
-          }, child: const Text('Enabled')),
-        ],
-      ),
-    );
-  }
-}
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
   static const Color transparent = Color(0x00000000);
@@ -54,7 +29,7 @@ class HomePage extends StatelessWidget {
       children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white10
+              color: Color(0x00000000)
             ),
           ),
           Positioned(
