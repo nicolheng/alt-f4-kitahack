@@ -67,6 +67,7 @@ flutter:
     - asset/homepage/recipe_book.png
     - asset/homepage/resume.png
     - asset/homepage/default_profile.png
+    - asset/login/profileIcon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

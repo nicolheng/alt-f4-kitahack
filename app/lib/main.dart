@@ -1,6 +1,7 @@
 import 'package:alt_f4/pages/home_page.dart';
 import 'package:alt_f4/pages/login_page.dart';
 import 'package:alt_f4/pages/food_page.dart';
+import 'package:alt_f4/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,10 +26,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      initialRoute: "/food",
+      initialRoute: "/login",
       routes: {
-        "/welcome": (context) => HomePage(),
         "/login": (context) => LoginPage(),
+        "/signup": (context) => SignUpPage(),
+        "/welcome": (context) => HomePage(),
         "/food": (context) => FoodPage(),
       },
     );
