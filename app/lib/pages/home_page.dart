@@ -125,7 +125,7 @@ class HomePage extends StatelessWidget {
                       title: "Food",
                       icon: Icons.restaurant,
                       bgColor: Color(0x99FB9100),
-                      onPressed: () {print("Eating");},
+                      onPressed: () {Navigator.pushNamed(context, "/food");},
                       iconImg: "asset/homepage/recipe_book.png",
                     ),
                     CategoryButton(
@@ -252,7 +252,7 @@ class CategoryButton extends StatelessWidget {
                     child: Icon(
                       icon, 
                       size: 30, 
-                      shadows: <Shadow>[Shadow(color: Colors.black12, blurRadius: 8.0, offset: Offset(0, 2.0))],
+                      shadows: <Shadow>[Shadow(color: Colors.black12, blurRadius: 8.0, offset: Offset(0, 2.0)),Shadow(color: Colors.white, blurRadius: 8.0, offset: Offset(0, 2.0))],
                       color: bgColor,
                     ),
                   ),

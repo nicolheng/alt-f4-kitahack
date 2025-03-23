@@ -37,6 +37,7 @@ dependencies:
   english_words: ^4.0.0
   provider: ^6.1.2
   google_fonts: ^6.2.1
+  ionicons: ^0.2.2
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,7 @@ flutter:
     - asset/homepage/resume.png
     - asset/homepage/default_profile.png
     - asset/login/profileIcon.png
+    - asset/food/frittataPIC.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      initialRoute: "/login",
+      initialRoute: "/food",
       routes: {
         "/login": (context) => LoginPage(),
         "/signup": (context) => SignUpPage(),

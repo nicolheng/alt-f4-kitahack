@@ -26,6 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
     if (pickedDate != null) {
       setState(() {
         _selectedDate = pickedDate;
+                                            print(_selectedDate);
         _dobController.text = "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
       });
     }
