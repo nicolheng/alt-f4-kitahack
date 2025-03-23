@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.1.2
   google_fonts: ^6.2.1
   ionicons: ^0.2.2
+  #cloud_firestore: ^5.6.5
 
 dev_dependencies:
   flutter_test:

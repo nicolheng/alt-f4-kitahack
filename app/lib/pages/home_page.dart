@@ -181,7 +181,9 @@ class HomePage extends StatelessWidget {
               SettingButton(
                 title: "Settings",
                 bgColor: Color(0x80C6F1FF),
-                onPressed: () {print("set");},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, "/settings");
+                },
               ),
             ],
           ),
