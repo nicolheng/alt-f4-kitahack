@@ -136,8 +136,7 @@ class FoodPage extends StatelessWidget {
             alignment: Alignment.center,
             child: Container(
               width: screenWidth * 0.92,
-              height: screenHeight * 0.2,
-              padding: const EdgeInsets.all(8.0),
+              height: screenHeight * 0.22,
               decoration: BoxDecoration(
                 color: const Color(0x99FFFFFF),
                 borderRadius: BorderRadius.circular(10),
@@ -145,38 +144,86 @@ class FoodPage extends StatelessWidget {
               child: Stack(
                 children: [
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Your Latest Meal",
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFC46F2E),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text("Calories\nCarbohydrate",
-                            style: GoogleFonts.poppins(fontSize: 14)),
-                      ],
-                    ),
-                  ),
-    
-                  // View More button
-                  Positioned(
-                    right: 10,
-                    bottom: 0,
-                    child: ElevatedButton(
-                      onPressed: () {print("AwMan");},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                        elevation: 3,
-                        minimumSize: const Size(75, 22)
+                    child: Text(
+                      "Your Latest Meal",
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0x99C46F2E),
                       ),
-                      child: const Text("View More"),
                     )
                   ),
+
+                  // Last Meal Box
+                  Expanded(
+                    child: Positioned(
+                      left: 15,
+                      right: 15,
+                      top: 25,
+                      bottom: 23,
+                      child: Container(
+                        width: screenWidth*0.85,
+                        height: screenHeight*0.15,
+                        decoration: BoxDecoration(
+                          color: Color(0x80EFA23A),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 0,
+                              bottom: 0,
+                              left: 5,
+                              child: Text("Calories\t\t309\nCarbohydrate\t3%",
+                                style: GoogleFonts.poppins(fontSize: 12)
+                              ),
+                            ),
+
+                            Positioned(
+                              right: 5,
+                              top: 5,
+                              bottom: 0,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Chicken Caeser Salad",
+                                    style: GoogleFonts.anton(fontWeight: FontWeight.bold, fontSize: 20),
+                                  ),
+                                  Container(
+                                    width: screenWidth*0.4,
+                                    height: screenHeight*0.1,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage("asset/food/chicken-caesar-salad.png") //Change this later on when meal history is done
+                                        )
+                                    ),
+                                  )
+                                ],
+                              )
+                            )
+                          ],
+                        )
+                      ),
+                    ),
+                  ),
+                  
+                  // View More button
+                  Expanded(
+                    child:Positioned(
+                      right: 10,
+                      bottom: 0,
+                      child: ElevatedButton(
+                        onPressed: () {print("AwMan");},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          elevation: 3,
+                          minimumSize: const Size(75, 22)
+                        ),
+                        child: const Text("View More",style: TextStyle(color: Colors.white),),
+                      )
+                    ),
+                  ),
+                  
                 ],
               ),
             ),
@@ -278,7 +325,7 @@ class FoodPage extends StatelessWidget {
                 ),
                 SizedBox(width: screenWidth*0.025,),
                 FloatingActionButton(
-                  onPressed: (){},
+                  onPressed: (){print("Snap");},
                   backgroundColor: Colors.white,
                       child: const Icon(Icons.camera_alt, color: Colors.orange, size: 30),
                 ),
@@ -332,7 +379,7 @@ class RecipeBox extends StatelessWidget {
             flex: 4,
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xCCFFC577),
+                color: Color(0x80EFA23A),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                 image: DecorationImage(
                   image: AssetImage(image),
@@ -355,7 +402,7 @@ class RecipeBox extends StatelessWidget {
                   left: 5,
                   child: Text(
                     recipeName,
-                    style: TextStyle(
+                    style: GoogleFonts.pathwayGothicOne(
                       color: Colors.black87,
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
