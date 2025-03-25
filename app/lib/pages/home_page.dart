@@ -132,7 +132,7 @@ class HomePage extends StatelessWidget {
                       title: "Profile",
                       icon: Icons.person,
                       bgColor: Color(0x99BEF1ED),
-                      onPressed: () {print("Checking");},
+                      onPressed: () {Navigator.pushNamed(context, "/profile");},
                       iconImg: "asset/homepage/resume.png",
                     ),
                     CategoryButton(

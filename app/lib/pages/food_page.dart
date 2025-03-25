@@ -106,7 +106,7 @@ class FoodPage extends StatelessWidget {
               IconButton(
                 padding: EdgeInsets.fromLTRB(20,0,0,5),
                 onPressed: () => Navigator.pushNamed(context, "/welcome"), 
-                icon: Icon(Icons.arrow_back_ios, color: Colors.black,),
+                icon: Icon(Icons.arrow_back_rounded, color: Colors.black,),
               ),
               SizedBox(height: 10,),
 
@@ -293,7 +293,7 @@ class FoodPage extends StatelessWidget {
                     padding: EdgeInsets.only(top: screenHeight*0.04, right: 10, left: 10),
                     child: GridView.count(
                       shrinkWrap: false,
-                      crossAxisCount: 2, // Two buttons per row
+                      crossAxisCount: 2,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                       childAspectRatio: 1.6, // Adjust height-to-width ratio

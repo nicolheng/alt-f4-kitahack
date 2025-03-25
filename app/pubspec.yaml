@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.1.2
   google_fonts: ^6.2.1
   ionicons: ^0.2.2
+  carousel_slider: ^5.0.0
   #cloud_firestore: ^5.6.5
 
 dev_dependencies:
@@ -72,6 +73,7 @@ flutter:
     - asset/login/profileIcon.png
     - asset/food/frittataPIC.png
     - asset/food/chicken-caesar-salad.png
+    - asset/profile/defaultProfile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

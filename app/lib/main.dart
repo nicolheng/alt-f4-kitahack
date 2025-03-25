@@ -1,6 +1,7 @@
 import 'package:alt_f4/pages/home_page.dart';
 import 'package:alt_f4/pages/login_page.dart';
 import 'package:alt_f4/pages/food_page.dart';
+import 'package:alt_f4/pages/profile_page.dart';
 import 'package:alt_f4/pages/signup_page.dart';
 import 'package:alt_f4/pages/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         "/signup": (context) => SignUpPage(),
         "/welcome": (context) => HomePage(),
         "/food": (context) => FoodPage(),
+        "/profile": (context) => ProfilePage(),
         "/settings": (context) => SettingsPage(),
       },
     );
