@@ -209,7 +209,7 @@ class ProfilePage extends StatelessWidget {
                         elevation: 5,
                         shape: CircleBorder(),
                     ),
-                    onPressed: (){}, 
+                    onPressed: (){print("Editing Profile");}, 
                     child: Icon(Icons.create_outlined, color: Colors.black),
                 ),
             ),
@@ -233,6 +233,9 @@ class ProfilePage extends StatelessWidget {
   Widget _profileDetails(BuildContext context){
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    String status = "Not Stated";
+    var boxcolor = Color(0xFFEC640D);
+    status == "Not Stated" ? boxcolor = Color(0xFFEC640D) : boxcolor = Color(0xFF9BDE5B);
     
     return Stack(
         children: [
@@ -242,62 +245,110 @@ class ProfilePage extends StatelessWidget {
             left: screenWidth * 0.05,
             right: screenWidth * 0.05,
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.fromLTRB(15,10,15,10),
               width: screenWidth * 0.8,
               height: screenHeight * 0.58,
               decoration: BoxDecoration(
-              color: Color(0xCCFFFFFF),
+              color: Color(0x66FFFFFF),
               borderRadius: BorderRadius.circular(20),
               ),
-              child: Stack(
-                children: [
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
 
-                  // Weights and Heights Inputs
-                  Center(
-                    child: Column(
+                // Weights and Heights Inputs
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text("Weight", style: GoogleFonts.rationale(fontSize: 24, fontWeight: FontWeight.w300),),
+                    ),                    
+                    ListWheelPicker(
+                      initialValue: 50, 
+                      itemCount: 200, 
+                      onSelectedItemChanged: (value){print("Selected: $value");}
+                    ),
+                    SizedBox(height: screenHeight*0.01,),
+                    Center(child: Text("Height", style: GoogleFonts.rationale(fontSize: 24, fontWeight: FontWeight.w300),),),
+                    ListWheelPicker(
+                      initialValue: 151,
+                      itemCount: 251,
+                      onSelectedItemChanged: (value){print("Selected: $value");}
+                    ),
+                    Row(
                       children: [
-                        Text("Weight", style: GoogleFonts.rationale(fontSize: 24, fontWeight: FontWeight.w300),),
-                        ListWheelPicker(
-                          initialValue: 50, 
-                          itemCount: 200, 
-                          onSelectedItemChanged: (value){print("Selected: $value");}
+                        Padding(padding: EdgeInsets.only(top: screenHeight*0.01, left: screenWidth*0.04),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Text("Gender", style: GoogleFonts.rationale(fontSize: 24, fontWeight: FontWeight.w300),),
+                                GenderButton(),
+                              ],
+                            ),
+                          ),
                         ),
-                        SizedBox(height: 10,),
-                        Text("Height", style: GoogleFonts.rationale(fontSize: 24, fontWeight: FontWeight.w300),),
-                        ListWheelPicker(
-                          initialValue: 151,
-                          itemCount: 251,
-                          onSelectedItemChanged: (value){print("Selected: $value");}
-                        ),
-                        Row(
-                          children: [
-                            Padding(padding: EdgeInsets.only(top: 20),
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    Text("Gender"),
-                                    GenderButton(),
-                                  ],
+                        Padding(padding: EdgeInsets.only(top: screenHeight*0.01, left: screenWidth*0.1),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Text("Age", style: GoogleFonts.rationale(fontSize: 24, fontWeight: FontWeight.w300),),
+                                Container(
+                                  width: screenWidth*0.3,
+                                  height: screenHeight*0.06,
+                                  decoration: BoxDecoration(color: Color(0xFFE2E9E9), borderRadius: BorderRadius.circular(10)),
+                                  child:Center(
+                                    child: AgeDropdown(),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                            Padding(padding: EdgeInsets.only(top: 20,left: screenWidth*0.25),
-                              child: Text("Lifestyle"),
-                            ),
-                          ],
+                          )
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    Row(
+                      children: [
+                        Padding(padding: EdgeInsets.only(top: screenHeight*0.01, left: screenWidth*0.04),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Text("Diet Preference", style: GoogleFonts.rationale(fontSize: 24, fontWeight: FontWeight.w300),),
+                                Container(
+                                  width: screenWidth*0.3,
+                                  height: screenHeight*0.05,
+                                  decoration: BoxDecoration(color: boxcolor, borderRadius: BorderRadius.circular(10)),
+                                  child: Center(child: Text(status, style: GoogleFonts.vt323(color: Colors.white, fontSize: 24),textAlign: TextAlign.center,)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.only(top: screenHeight*0.01, left: screenWidth*0.1),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Text("Allergies", style: GoogleFonts.rationale(fontSize: 24, fontWeight: FontWeight.w300),),
+                                Container(
+                                  width: screenWidth*0.3,
+                                  height: screenHeight*0.05,
+                                  decoration: BoxDecoration(color: boxcolor, borderRadius: BorderRadius.circular(10),),
+                                  child: Center(child: Text(status, style: GoogleFonts.vt323(color: Colors.white, fontSize: 24),textAlign: TextAlign.center)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight*0.03,),
+                    Center(child: ElevatedButton(onPressed: (){print("Request Edit");}, style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7CE5DD)), child: Text("Edit Profile", style: GoogleFonts.geo(color: Colors.black, fontSize: 20),))),
+                  ],
+                ),
               ),
-
             ),
           ),
         ],
     );
   }
-
 }
 
 
@@ -311,7 +362,7 @@ class ListWheelPicker extends StatefulWidget {
     Key? key,
     required this.initialValue,
     required this.itemCount,
-    this.itemWidth = 60.0,
+    this.itemWidth = 40.0,
     required this.onSelectedItemChanged,
   }) : super(key: key);
 
@@ -339,41 +390,52 @@ class _ListWheelPickerState extends State<ListWheelPicker> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    
 
     return SizedBox(
-      height: screenHeight*0.05,
-      child: RotatedBox(
-        quarterTurns: -1,
-        child: ListWheelScrollView.useDelegate(
-          controller: scrollController,
-          itemExtent: widget.itemWidth,
-          physics: FixedExtentScrollPhysics(),
-          magnification: 1.4,
-          useMagnifier: true,
-          onSelectedItemChanged: (index) {
-            setState(() {
-              selected = index;
-            });
-            widget.onSelectedItemChanged(index);
-          },
-          childDelegate: ListWheelChildBuilderDelegate(
-            childCount: widget.itemCount,
-            builder: (context, index) => RotatedBox(
-              quarterTurns: 1,
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 400),
-                width: index == selected ? 60 : 50,
-                height: index == selected ? 60 : 50,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: index == selected ? Color(0xFF2EC4B6) : Colors.grey,
-                  shape: BoxShape.circle,
-                ),
-                child: Text(
-                  '$index',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+      height: screenHeight*0.06,
+      child:ClipRect(
+        child: RotatedBox(
+          quarterTurns: -1,
+          child: ListWheelScrollView.useDelegate(
+            controller: scrollController,
+            itemExtent: widget.itemWidth,
+            physics: FixedExtentScrollPhysics(),
+            magnification: 1.2,
+            useMagnifier: true,
+            onSelectedItemChanged: (index) {
+              setState(() {
+                selected = index;
+              });
+              widget.onSelectedItemChanged(index);
+            },
+            childDelegate: ListWheelChildBuilderDelegate(
+              childCount: widget.itemCount,
+              builder: (context, index) {
+                double distance = (index - selected).abs().toDouble();
+                double scale = ((distance-0.15).clamp(0.95,1.0));
+                print("scale: $scale");
+                print("distance: $distance");
+
+                return RotatedBox(
+                  quarterTurns: 1,
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                    width: index == selected ? 35 : 30 * scale,
+                    height: index == selected ? 35 : 30 * scale,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: index == selected ? Color(0xFF2EC4B6) : Colors.grey,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      '$index',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -388,13 +450,16 @@ class GenderButton extends StatefulWidget{
 }
 
 class _GenderPickerState extends State<GenderButton>{
-  var boxColor = Colors.deepPurple;
+  var boxColor = Color(0xFFEC640D);
   double boxX = 0;
+  String buttonText = "Unknown";
 
   void _changeState(){
     setState(() {
-      boxX = (boxX == -1) ? 1:-1;
-      boxColor = Colors.amber;
+      boxX = (boxX == 2) ? -2:2;
+      buttonText = (boxX == 2) ? "Male":"Female";
+      print(boxX);
+      boxColor = Color(0xFF2EC4B6);
     });
   }
 
@@ -405,19 +470,55 @@ class _GenderPickerState extends State<GenderButton>{
 
     return ElevatedButton(
       onPressed: _changeState, 
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))
+      ),
       child: SizedBox(
-        width: screenWidth*0.2,
+        width: screenWidth*0.22,
         height: screenHeight*0.05,
         child: AnimatedContainer(
-          duration: Duration(seconds: 1),
+          duration: Duration(milliseconds: 600),
           alignment: Alignment(boxX, 0),
           child: Container(
-            width: screenWidth*0.1,
+            width: screenWidth*0.18,
             height: screenHeight*0.05,
             color: boxColor,
+            child: Text(buttonText, style: GoogleFonts.vt323(color: Colors.white, fontSize: 24),textAlign: TextAlign.center,),
           ),
         ),
       ),
+    );
+  }
+}
+
+class AgeDropdown extends StatefulWidget {
+  @override
+  _AgeDropdownState createState() => _AgeDropdownState();
+}
+
+class _AgeDropdownState extends State<AgeDropdown> {
+  int? selectedAge;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<int>(
+      value: selectedAge,
+      hint: Text("Select Age", textAlign: TextAlign.center,),
+      items: List.generate(100, (index) => index + 1)
+          .map((age) => DropdownMenuItem<int>(
+                value: age,
+                child: Text(age.toString(), textAlign: TextAlign.center,),
+              ))
+          .toList(),
+      onChanged: (int? newValue) {
+        setState(() {
+          selectedAge = newValue;
+        });
+      },
+      icon: Icon(Icons.arrow_drop_down),
+      style: TextStyle(fontSize: 16, color: Colors.black),
+      dropdownColor: Colors.white,
+      elevation: 4,
     );
   }
 }

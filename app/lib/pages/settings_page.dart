@@ -31,14 +31,6 @@ class _SettingsPageState extends State<SettingsPage> {
       body: Stack(
         children: [
           _buildBackground(),
-          Positioned(
-            top: screenHeight * 0.05,
-            left: screenWidth * 0.05,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pushReplacementNamed(context, "/welcome"),
-            ),
-          ),
           Center(
             child: Container(
               width: isLandscape ? screenWidth * 0.6 : screenWidth * 0.9,
@@ -123,6 +115,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
+            ),
+          ),
+          
+          Positioned(
+            top: screenHeight * 0.05,
+            left: screenWidth * 0.05,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pushReplacementNamed(context, "/welcome"),
             ),
           ),
         ],
