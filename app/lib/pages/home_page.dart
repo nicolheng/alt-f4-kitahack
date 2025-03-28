@@ -118,7 +118,7 @@ class HomePage extends StatelessWidget {
                       title: "Exercise",
                       icon: Icons.directions_run,
                       bgColor: Color(0x99FFBF69),
-                      onPressed: () {print("Exercising");},
+                      onPressed: () {Navigator.pushReplacementNamed(context, "/exercise");},
                       iconImg: "asset/homepage/footsteps.png",
                     ),
                     CategoryButton(

@@ -4,6 +4,8 @@ import 'package:alt_f4/pages/food_page.dart';
 import 'package:alt_f4/pages/profile_page.dart';
 import 'package:alt_f4/pages/signup_page.dart';
 import 'package:alt_f4/pages/settings_page.dart';
+import 'package:alt_f4/pages/exercise_page.dart';
+import 'package:alt_f4/pages/exerciselog_page.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      initialRoute: "/profile",
+      initialRoute: "/welcome",
       routes: {
         "/login": (context) => LoginPage(),
         "/signup": (context) => SignUpPage(),
@@ -41,6 +43,8 @@ class MyApp extends StatelessWidget {
         "/food": (context) => FoodPage(),
         "/profile": (context) => ProfilePage(),
         "/settings": (context) => SettingsPage(),
+        "/exercise" : (context) => ExercisePage(),
+        "/exerciselog" : (context) => ExerciseLogPage(),
       },
     );
   }

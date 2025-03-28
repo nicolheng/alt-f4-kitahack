@@ -78,6 +78,9 @@ flutter:
     - asset/food/frittataPIC.png
     - asset/food/chicken-caesar-salad.png
     - asset/profile/defaultProfile.png
+    - asset/exercise/user.png
+    - asset/exercise/pikachu.png
+    - asset/exercise/rachel.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
