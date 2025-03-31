@@ -359,12 +359,12 @@ class ListWheelPicker extends StatefulWidget {
   final ValueChanged<int> onSelectedItemChanged;
 
   const ListWheelPicker({
-    Key? key,
+    super.key,
     required this.initialValue,
     required this.itemCount,
     this.itemWidth = 40.0,
     required this.onSelectedItemChanged,
-  }) : super(key: key);
+  });
 
   @override
   _ListWheelPickerState createState() => _ListWheelPickerState();
@@ -414,8 +414,6 @@ class _ListWheelPickerState extends State<ListWheelPicker> {
               builder: (context, index) {
                 double distance = (index - selected).abs().toDouble();
                 double scale = ((distance-0.15).clamp(0.95,1.0));
-                print("scale: $scale");
-                print("distance: $distance");
 
                 return RotatedBox(
                   quarterTurns: 1,

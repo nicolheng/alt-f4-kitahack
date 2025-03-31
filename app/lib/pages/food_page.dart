@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
@@ -97,34 +98,40 @@ class FoodPage extends StatelessWidget {
 
     return Stack(
       children: [
-        Positioned(
-          top: screenHeight*0.03,
-          left: 0,
-          right: 0,
-          child: Row(
-            children: [
-              IconButton(
-                padding: EdgeInsets.fromLTRB(20,0,0,5),
+        Row(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: IconButton(
+                padding: EdgeInsets.fromLTRB(20,20,0,0),
                 onPressed: () => Navigator.pushNamed(context, "/welcome"), 
                 icon: Icon(Icons.arrow_back_rounded, color: Colors.black,),
               ),
-              SizedBox(height: 10,),
+            ),
+            SizedBox(height: 10,),
 
-              // Title
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  "Your Personal\nFood Tracking Assistant",
-                  style: GoogleFonts.tiltWarp(
-                    color: Colors.black87,
-                    fontSize: 28,
-                    fontWeight: FontWeight.w900,
+            // Title
+            Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: EdgeInsets.only(top: screenHeight*0.02),
+                child: Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: AutoSizeText(
+                      "Your Personal\nFood Tracking Assistant",
+                      style: GoogleFonts.tiltWarp(
+                        color: Colors.black87,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
 
         // Meal History
@@ -185,9 +192,14 @@ class FoodPage extends StatelessWidget {
                               bottom: 0,
                               child: Column(
                                 children: [
-                                  Text(
-                                    "Chicken Caeser Salad",
-                                    style: GoogleFonts.anton(fontWeight: FontWeight.bold, fontSize: 20),
+                                  Flexible(
+                                    child: FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: AutoSizeText(
+                                        "Chicken Caeser Salad",
+                                        style: GoogleFonts.anton(fontWeight: FontWeight.bold, fontSize: 16),
+                                      ),
+                                    ),
                                   ),
                                   Container(
                                     width: screenWidth*0.4,
@@ -211,13 +223,13 @@ class FoodPage extends StatelessWidget {
                   Expanded(
                     child:Positioned(
                       right: 10,
-                      bottom: 0,
+                      bottom: -10,
                       child: ElevatedButton(
                         onPressed: () {print("AwMan");},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orange,
                           elevation: 3,
-                          minimumSize: const Size(75, 22)
+                          minimumSize: Size(screenWidth*0.0001, screenHeight*0.005),
                         ),
                         child: const Text("View More",style: TextStyle(color: Colors.white),),
                       )
@@ -311,33 +323,42 @@ class FoodPage extends StatelessWidget {
         ),
       
         // Camera Button
-        Positioned(
-          bottom: screenHeight*0.04,
-          left: screenWidth*0.07,
-          right: 0,
-          child: Center(
+        Align(
+          alignment: Alignment.bottomCenter,
+          child:Padding(
+            padding: EdgeInsets.fromLTRB(screenWidth*0.047, 0, screenWidth*0.047, screenHeight*0.04),
             child: Row(
               children: [
-                Text(
-                  " Search for a recommended dish  ",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.patrickHandSc(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.bold),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: AutoSizeText(
+                      "Search for a recommended dish",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.patrickHandSc(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-                SizedBox(width: screenWidth*0.025,),
+                SizedBox(width: screenWidth*0.02,),
                 FloatingActionButton(
-                  onPressed: (){print("Snap");},
+                  onPressed: () => Navigator.pushNamed(context, "/foodcamera"), 
                   backgroundColor: Colors.white,
                       child: const Icon(Icons.camera_alt, color: Colors.orange, size: 30),
                 ),
-                SizedBox(width: screenWidth*0.025,),
-                Text(
-                  " Or scan what's on your fridge",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.patrickHandSc(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.bold),
+                SizedBox(width: screenWidth*0.02,),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: AutoSizeText(
+                      "Or scan what's on your fridge",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.patrickHandSc(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
               ],
             ),
-          )
+          ),
         ),
       ],
     );
@@ -398,7 +419,7 @@ class RecipeBox extends StatelessWidget {
               ),
               child: Stack(children: [
                 Positioned(
-                  top: 0,
+                  top: -5,
                   left: 5,
                   child: Text(
                     recipeName,

@@ -300,8 +300,8 @@ class _ExercisePageState extends State<ExercisePage> {
   Widget _buildProfileAvatar(String name, String imagePath, Color borderColor, double screenWidth, bool isLandscape, String routeName) {
     return Column(
       children: [
-        Container(
-          width: isLandscape ? screenWidth * 0.1 : screenWidth * 0.16, // Ensures it's circular
+        SizedBox(
+          width: isLandscape ? screenWidth * 0.1 : screenWidth * 0.16, 
           height: isLandscape ? screenWidth * 0.1 : screenWidth * 0.16,
           child: FloatingActionButton(
             onPressed: () {
