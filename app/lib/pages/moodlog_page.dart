@@ -82,7 +82,7 @@ class _MoodLogPageState extends State<MoodLogPage> {
                               onPressed: () {
                                 setState(() {
                                   int selectedDay = DateTime.now().day; // Get today's day
-                                  userDiaryEntries[selectedDay] = _diaryController.text; // Save entry
+                                  //userDiaryEntries[selectedDay] = _diaryController.text; // Save entry
                                 });
                                 showDialog(
                                   context: context,

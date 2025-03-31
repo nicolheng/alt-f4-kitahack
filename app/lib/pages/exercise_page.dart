@@ -299,6 +299,7 @@ class _ExercisePageState extends State<ExercisePage> {
           width: isLandscape ? screenWidth * 0.1 : screenWidth * 0.16, // Ensures it's circular
           height: isLandscape ? screenWidth * 0.1 : screenWidth * 0.16,
           child: FloatingActionButton(
+            heroTag: null,
             onPressed: () {
               Navigator.pushReplacementNamed(context, routeName);
             },

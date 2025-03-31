@@ -335,6 +335,7 @@ class _MoodPageState extends State<MoodPage> {
               width: isLandscape ? screenWidth * 0.1 : screenWidth * 0.12, //circular
               height: isLandscape ? screenWidth * 0.1 : screenWidth * 0.12,
               child: FloatingActionButton(
+                heroTag: null,
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, routeName);
                 },
