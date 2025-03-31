@@ -44,6 +44,7 @@ dependencies:
   external_path: ^2.2.0
   media_scanner: ^2.2.0
   auto_size_text: ^3.0.0
+  intl: ^0.20.2
   #cloud_firestore: ^5.6.5
 
 dev_dependencies:
@@ -82,6 +83,9 @@ flutter:
     - asset/exercise/user.png
     - asset/exercise/pikachu.png
     - asset/exercise/rachel.png
+    - asset/exercise/plusIcon.png
+    - asset/mood/plusIcon.png
+    - asset/mood/panda.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
