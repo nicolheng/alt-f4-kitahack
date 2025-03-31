@@ -174,11 +174,8 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: ShapeDecoration(
-        color: const Color(0xFFFFBF69), // Main background color
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFBF69),
       ),
       child: Stack(
         children: [

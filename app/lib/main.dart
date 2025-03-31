@@ -6,6 +6,8 @@ import 'package:alt_f4/pages/signup_page.dart';
 import 'package:alt_f4/pages/settings_page.dart';
 import 'package:alt_f4/pages/exercise_page.dart';
 import 'package:alt_f4/pages/exerciselog_page.dart';
+import 'package:alt_f4/pages/mood_page.dart';
+import 'package:alt_f4/pages/moodlog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,6 +42,8 @@ class MyApp extends StatelessWidget {
         "/settings": (context) => SettingsPage(),
         "/exercise" : (context) => ExercisePage(),
         "/exerciselog" : (context) => ExerciseLogPage(),
+        "/mood" : (conext) => MoodPage(),
+        "/moodlog" : (context) => MoodLogPage(),
       },
     );
   }

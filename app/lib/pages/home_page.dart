@@ -139,7 +139,7 @@ class HomePage extends StatelessWidget {
                       title: "Mood",
                       icon: Icons.emoji_emotions,
                       bgColor: Color(0x992EC4B6),
-                      onPressed: () {print("Feeling");},
+                      onPressed: () {Navigator.pushReplacementNamed(context, "/mood");},
                       iconImg: "asset/homepage/fern.png",
                     ),
                   ],

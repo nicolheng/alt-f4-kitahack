@@ -42,7 +42,7 @@ class _ExercisePageState extends State<ExercisePage> {
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: EdgeInsets.only(top: screenHeight * 0.19),
+              padding: EdgeInsets.only(top: screenHeight * 0.15),
               child: Container(
                 width: isLandscape ? screenWidth * 0.6 : screenWidth * 1.1,
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 16),
@@ -54,7 +54,7 @@ class _ExercisePageState extends State<ExercisePage> {
                         // Green Container
                         Container(
                           width: isLandscape ? screenWidth * 0.5 : screenWidth * 1.1,
-                          height: 80,
+                          height: isLandscape ? screenHeight * 0.5 : screenHeight * 0.09,
                           decoration: BoxDecoration(
                             color: Color(0xFF2EC4B6),
                             borderRadius: BorderRadius.only(
@@ -100,7 +100,7 @@ class _ExercisePageState extends State<ExercisePage> {
                     ),
                     Container(
                       width: isLandscape ? screenWidth * 0.5 : screenWidth * 1.1,
-                      height: 180,
+                      height: isLandscape ? screenHeight * 0.5 : screenHeight * 0.25,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
@@ -236,14 +236,12 @@ class _ExercisePageState extends State<ExercisePage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFFCBF3F0),
                           shape: CircleBorder(),
-                          minimumSize: Size(70, 70),
+                          minimumSize: Size(60, 60),
                         ),
-                        child: Text(
-                          "+",
-                          style: TextStyle(
-                            fontSize: isLandscape ? screenWidth * 0.04 : screenWidth * 0.11,
-                            fontWeight: FontWeight.bold,
-                            ),
+                        child: Image.asset(
+                          'asset/exercise/plusIcon.png',
+                          width: isLandscape ? screenWidth * 0.04 : screenWidth * 0.11,
+                          height: isLandscape ? screenWidth * 0.04 : screenWidth * 0.11,
                         ),
                       ),
                     ),
@@ -264,11 +262,8 @@ class _ExercisePageState extends State<ExercisePage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: ShapeDecoration(
-        color: const Color(0xFFFFBF69), // Main background color
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFBF69),
       ),
       child: Stack(
         children: [
