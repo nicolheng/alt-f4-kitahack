@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:media_scanner/media_scanner.dart';
+import 'package:alt_f4/pages/return_recipe.dart';
 
 class CameraPage extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -20,6 +21,7 @@ class _CameraPageState extends State<CameraPage> {
   List<File> imagesList = [];
   bool isFlashOn = false;
   bool isRearCamera = true;
+  bool isRecipeSelected = true;
 
   Future<File> saveImage(XFile image) async {
     final downlaodPath = await ExternalPath.getExternalStoragePublicDirectory(
@@ -56,22 +58,29 @@ class _CameraPageState extends State<CameraPage> {
     }
 
     final file = await saveImage(image);
-    setState(() {
-      imagesList.add(file);
-    });
     MediaScanner.loadMedia(path: file.path);
+    setState(() {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => ImageRecognizer(imageCaptured: file, isRecipeSelected:isRecipeSelected)));
+    });
   }
 
-  void startCamera(int camera){
-    if (camera < widget.cameras.length){
-      cameraController = CameraController(
-        widget.cameras[camera],
-        ResolutionPreset.high,
-        enableAudio: false,
-      );
-      cameraValue = cameraController.initialize();
-    } else {
-      print("No Camera found at index $camera");
+  Future<void> startCamera(int camera) async{
+    setState(() {});
+    try{
+      if (camera+1 < widget.cameras.length){
+        cameraController = CameraController(
+          widget.cameras[camera+1],
+          ResolutionPreset.high,
+          enableAudio: false,
+        );
+        cameraValue = cameraController.initialize();
+      } else {
+        print("No Camera found at index $camera");
+      }
+    } on Exception catch (e){
+      print('Unknown Exception: $e');
+    } finally {
+      setState(() {});
     }
   }
 
@@ -155,35 +164,6 @@ class _CameraPageState extends State<CameraPage> {
                         ),
                       ),
                     ),
-                    const Gap(10),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isRearCamera = !isRearCamera;
-                        });
-                        isRearCamera ? startCamera(0) : startCamera(1);
-                      },
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(50, 0, 0, 0),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: isRearCamera
-                              ? const Icon(
-                                  Icons.camera_rear,
-                                  color: Colors.white,
-                                  size: 30,
-                                )
-                              : const Icon(
-                                  Icons.camera_front,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -244,7 +224,7 @@ class _CameraPageState extends State<CameraPage> {
                   border: Border.all(color: Color(0xFFFFBF69), width: 4.0, strokeAlign: BorderSide.strokeAlignInside),
                 ),
                 child: IconButton(
-                  onPressed: () => Navigator.pushNamed(context, "/food"), 
+                  onPressed: () => Navigator.pushNamed(context, "/foodcamera"), 
                   icon: Icon(Icons.arrow_back_rounded, color: Colors.black,),
                 ),
               ),
@@ -252,57 +232,56 @@ class _CameraPageState extends State<CameraPage> {
           ),
 
           // Search Dish and Search by ingredients
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 7, bottom: 65),
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: Color(0xFFFFBF69), width: 4.0, strokeAlign: BorderSide.strokeAlignInside),
-                                  ),
-                                  child: Text("Search"),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: Color(0xFFFFBF69), width: 4.0, strokeAlign: BorderSide.strokeAlignInside),
-                                  ),
-                                  child: Text("Cook"),
-                                ),
-                              ],
-                            ),
+          Stack(
+            children: [
 
-                          );
-                        },
-                      ),
-                    ),
+              // Find Recipe
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 200),
+                left: isRecipeSelected ? size.width*0.41 : size.width*0.2,
+                bottom: size.height*0.15,
+                child: ElevatedButton(
+                  onPressed: (){
+                    setState(() {
+                      isRecipeSelected = true;
+                    });
+                  }, 
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isRecipeSelected ? Colors.amberAccent : Colors.cyanAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                   ),
-                )
-                ],
+                  child: Text(
+                    "Recipe",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.patrickHandSc(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.bold, letterSpacing: 2),
+                  ),
+                ),
               ),
-            ),
-          )
+
+              // Find Recipe By ingredient
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 200),
+                left: isRecipeSelected ? size.width*0.61 : size.width*0.4,
+                bottom: size.height*0.15,
+                child: ElevatedButton(
+                  onPressed: (){
+                    setState(() {
+                      isRecipeSelected = false;
+                    });
+                  }, 
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isRecipeSelected ? Colors.cyanAccent : Colors.amberAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                  ),
+                  child: Text(
+                    "Ingredients",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.patrickHandSc(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.bold, letterSpacing: 2),
+                  ),
+                ),
+              )
+            ],
+          ),
         ],
       ),
     );

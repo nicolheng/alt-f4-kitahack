@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -219,10 +220,15 @@ class ProfilePage extends StatelessWidget {
                 top: screenHeight*0.31,
                 left: 0,
                 right: 0,
-                child: Text(
-                    "Some Random Name",
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 32),
-                    textAlign: TextAlign.center,
+                child: Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: AutoSizeText(
+                      "Some Random Name",
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 32),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
             ),
 
@@ -274,6 +280,8 @@ class ProfilePage extends StatelessWidget {
                       itemCount: 251,
                       onSelectedItemChanged: (value){print("Selected: $value");}
                     ),
+
+                    // Gender and Age Inputs
                     Row(
                       children: [
                         Padding(padding: EdgeInsets.only(top: screenHeight*0.01, left: screenWidth*0.04),
@@ -305,6 +313,8 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ],
                     ),
+
+                    // Diet and Allergies Setting Status
                     Row(
                       children: [
                         Padding(padding: EdgeInsets.only(top: screenHeight*0.01, left: screenWidth*0.04),

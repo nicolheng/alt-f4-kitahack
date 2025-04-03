@@ -150,92 +150,86 @@ class FoodPage extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  Expanded(
-                    child: Text(
-                      "Your Latest Meal",
-                      style: GoogleFonts.plusJakartaSans(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0x99C46F2E),
-                      ),
-                    )
+                  Text(
+                    "Your Latest Meal",
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0x99C46F2E),
+                    ),
                   ),
 
                   // Last Meal Box
-                  Expanded(
-                    child: Positioned(
-                      left: 15,
-                      right: 15,
-                      top: 25,
-                      bottom: 23,
-                      child: Container(
-                        width: screenWidth*0.85,
-                        height: screenHeight*0.15,
-                        decoration: BoxDecoration(
-                          color: Color(0x80EFA23A),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: 0,
-                              bottom: 0,
-                              left: 5,
-                              child: Text("Calories\t\t309\nCarbohydrate\t3%",
-                                style: GoogleFonts.poppins(fontSize: 12)
-                              ),
+                  Positioned(
+                    left: 15,
+                    right: 15,
+                    top: 25,
+                    bottom: 23,
+                    child: Container(
+                      width: screenWidth*0.85,
+                      height: screenHeight*0.15,
+                      decoration: BoxDecoration(
+                        color: Color(0x80EFA23A),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: 0,
+                            bottom: 0,
+                            left: 5,
+                            child: Text("Calories\t\t309\nCarbohydrate\t3%",
+                              style: GoogleFonts.poppins(fontSize: 12)
                             ),
+                          ),
 
-                            Positioned(
-                              right: 5,
-                              top: 5,
-                              bottom: 0,
-                              child: Column(
-                                children: [
-                                  Flexible(
-                                    child: FittedBox(
-                                      fit: BoxFit.contain,
-                                      child: AutoSizeText(
-                                        "Chicken Caeser Salad",
-                                        style: GoogleFonts.anton(fontWeight: FontWeight.bold, fontSize: 16),
-                                      ),
+                          Positioned(
+                            right: 5,
+                            top: 5,
+                            bottom: 0,
+                            child: Column(
+                              children: [
+                                Flexible(
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: AutoSizeText(
+                                      "Chicken Caeser Salad",
+                                      style: GoogleFonts.anton(fontWeight: FontWeight.bold, fontSize: 16),
                                     ),
                                   ),
-                                  Container(
-                                    width: screenWidth*0.4,
-                                    height: screenHeight*0.1,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage("asset/food/chicken-caesar-salad.png") //Change this later on when meal history is done
-                                        )
-                                    ),
-                                  )
-                                ],
-                              )
+                                ),
+                                Container(
+                                  width: screenWidth*0.4,
+                                  height: screenHeight*0.1,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("asset/food/chicken-caesar-salad.png") //Change this later on when meal history is done
+                                      )
+                                  ),
+                                )
+                              ],
                             )
-                          ],
-                        )
-                      ),
-                    ),
-                  ),
-                  
-                  // View More button
-                  Expanded(
-                    child:Positioned(
-                      right: 10,
-                      bottom: -10,
-                      child: ElevatedButton(
-                        onPressed: () {print("AwMan");},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.orange,
-                          elevation: 3,
-                          minimumSize: Size(screenWidth*0.0001, screenHeight*0.005),
-                        ),
-                        child: const Text("View More",style: TextStyle(color: Colors.white),),
+                          )
+                        ],
                       )
                     ),
                   ),
                   
+                  // View More button
+                  Positioned(
+                    right: 10,
+                    bottom: -10,
+                    child: ElevatedButton(
+                      onPressed: () {print("AwMan");},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                        elevation: 3,
+                        minimumSize: Size(screenWidth*0.0001, screenHeight*0.005),
+                      ),
+                      child: const Text("View More",style: TextStyle(color: Colors.white),),
+                    )
+                  ),
+                
                 ],
               ),
             ),
