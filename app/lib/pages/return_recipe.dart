@@ -22,18 +22,21 @@ class _ImageRecognizerState extends State<ImageRecognizer> {
     return Stack(
       children: [
         _backgroundGradient(context),
-        SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Stack(
-            children: [
-        
-              // Switch Between Find Dish or Find Recipe from ingredients
-              if (widget.isRecipeSelected == true) ...[
-                FindDish(imageCaptured: widget.imageCaptured,),
-              ]else ...[
-                FindRecipe(imageCaptured: widget.imageCaptured,)
+        DefaultTextStyle(
+          style: TextStyle(color: Colors.white),
+          child: SingleChildScrollView(
+            
+            scrollDirection: Axis.vertical,
+            child: Stack(
+              children: [
+          
+                // Switch Between Find Dish or Find Recipe from ingredients
+                if (widget.isRecipeSelected)
+                  FindDish(imageCaptured: widget.imageCaptured,)
+                else
+                  FindRecipe(imageCaptured: widget.imageCaptured,)
               ],
-            ],
+            ),
           ),
         ),
       ],
@@ -124,7 +127,7 @@ class _FindDishState extends State<FindDish> {
           child: Padding(
             padding: EdgeInsets.fromLTRB(0, screenHeight*0.05, screenWidth*0.05, 0),
             child: IconButton(
-              onPressed: () => Navigator.pushNamed(context, "/camera"),
+              onPressed: () => Navigator.pushNamed(context, "/foodcamera"),
               icon: Icon(Ionicons.exit_outline, size: 30, color: Colors.white,),
             ),
           ),
@@ -305,17 +308,21 @@ class _FindDishState extends State<FindDish> {
 
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 1.6, // Adjust height-to-width ratio
-                    children: [
-                      RecipeBox(recipeName: "recipeName", difficulty: "Easy", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
-                      RecipeBox(recipeName: "recipeName", difficulty: "Medium", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
-                      RecipeBox(recipeName: "recipeName", difficulty: "Hard", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
-                    ],
+                  child: SizedBox(
+                    width: screenWidth*0.9,
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 1.6, // Adjust height-to-width ratio
+                      children: [
+                        RecipeBox(recipeName: "recipeName", difficulty: "Easy", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
+                        RecipeBox(recipeName: "recipeName", difficulty: "Medium", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
+                        RecipeBox(recipeName: "recipeName", difficulty: "Hard", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
+                      ],
+                    ),
                   ),
                 ),
                 
@@ -354,9 +361,230 @@ class FindRecipe extends StatefulWidget {
 }
 
 class _FindRecipeState extends State<FindRecipe> {
+  List<String> ingredients = ["Eggs","Cucumber","Rice"];
+  late TextEditingController _controller;
+  
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  void clearText(){
+    _controller.clear();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  
+  void _addIngredient(){
+    String inputOther = _controller.text;
+    ingredients.add(inputOther);
+    clearText();
+    setState(() {});
+  }
+
+  void removeButton(int index){
+    setState(() {
+      ingredients.removeAt(index);
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, screenHeight*0.05, screenWidth*0.05, 0),
+            child: IconButton(
+              onPressed: () => Navigator.pushNamed(context, "/foodcamera"),
+              icon: Icon(Ionicons.exit_outline, size: 30, color: Colors.white,),
+            ),
+          ),
+        ),
+        
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, screenHeight*0.05, 0, 0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: AutoSizeText(
+                      "Is This Correct?",
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16,color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5,),
+
+                // Captured Image
+                SizedBox(
+                  width: screenWidth*0.4,
+                  height: screenHeight*0.4,
+                  child: Image.file(File(widget.imageCaptured.path)),
+                ),
+                SizedBox(height: 5,),       
+
+                
+              // Ingredients
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Flexible(
+                  fit: FlexFit.loose,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: AutoSizeText(
+                      "Image Consists of",
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+                    
+              // Ingredients Viewbox
+              Padding(
+                padding: EdgeInsets.fromLTRB(screenWidth*0.05,0,screenWidth*0.05,0),
+                child: Wrap(
+                  children: List.generate(ingredients.length, (index){
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: IngredientsBox(
+                        ingredientName: ingredients[index],
+                        onPressed: () => removeButton(index),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+
+              // Other Inputs
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth*0.05,right: screenWidth*0.05, top: 10),
+                child: SizedBox(
+                  width: screenWidth*0.9,
+                  height: screenHeight*0.05,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: AutoSizeText(
+                            "Others? : ",
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 10, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0, right: 2.0),
+                        child: Material(
+                          color: Color(0xFF817F84),
+                          child: SizedBox(
+                            width: screenWidth*0.45,
+                            height: screenHeight*0.05,
+                            child: TextField(
+                              controller: _controller,
+                              decoration: InputDecoration(
+                                hintText: "Enter text",
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: ElevatedButton(
+                          onPressed: (){_addIngredient();}, 
+                          style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.orange)),
+                          child: Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: AutoSizeText(
+                                "Add",
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.fromLTRB(0,10,0,0),
+                child: Flexible(
+                  fit: FlexFit.loose,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: AutoSizeText(
+                      "-- Recipe Found --",
+                      style: GoogleFonts.podkova(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                child: SizedBox(
+                  width: screenWidth*0.9,
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 1.6, // Adjust height-to-width ratio
+                    children: [
+                      RecipeBox(recipeName: "recipeName", difficulty: "Easy", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
+                      RecipeBox(recipeName: "recipeName", difficulty: "Medium", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
+                      RecipeBox(recipeName: "recipeName", difficulty: "Hard", image: "asset/food/frittataPIC.png", onPressed: (){print("Yeah");}, calories: "200 Cal"),
+                    ],
+                  ),
+                ),
+              ),
+              
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15.0),
+                child: ElevatedButton(
+                  onPressed: (){print("Added to food history");}, 
+                  style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Color(0xFFFFFFFF))),
+                  child: Flexible(
+                    fit: FlexFit.loose,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: AutoSizeText(
+                        "Find Recipe",
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 12),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -397,10 +625,10 @@ class IngredientsBox extends StatelessWidget {
               flex: 2,
               child: Flexible(
                 child: FittedBox(
-                  fit: BoxFit.fill,
+                  fit: BoxFit.contain,
                   child: AutoSizeText(
                     " $ingredientName",
-                    style: GoogleFonts.podkova(fontWeight: FontWeight.w400, fontSize: 12, color: Colors.white, backgroundColor: Colors.transparent),
+                    style: GoogleFonts.podkova(fontWeight: FontWeight.w400, fontSize: 8, color: Colors.white, backgroundColor: Colors.transparent),
                   ),
                 ),
               ),

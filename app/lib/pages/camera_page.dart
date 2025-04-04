@@ -247,13 +247,13 @@ class _CameraPageState extends State<CameraPage> {
                     });
                   }, 
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isRecipeSelected ? Colors.amberAccent : Colors.cyanAccent,
+                    backgroundColor: isRecipeSelected ? Colors.white : Color(0x66FFFFFF),
                     padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                   ),
                   child: Text(
                     "Recipe",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.patrickHandSc(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.bold, letterSpacing: 2),
+                    style: GoogleFonts.patrickHandSc(fontSize: 11, color: isRecipeSelected ? Colors.black : Color(0x80000000), fontWeight: FontWeight.bold, letterSpacing: 2),
                   ),
                 ),
               ),
@@ -270,13 +270,13 @@ class _CameraPageState extends State<CameraPage> {
                     });
                   }, 
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isRecipeSelected ? Colors.cyanAccent : Colors.amberAccent,
+                    backgroundColor: isRecipeSelected ? Color(0x66FFFFFF) : Colors.white,
                     padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                   ),
                   child: Text(
                     "Ingredients",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.patrickHandSc(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.bold, letterSpacing: 2),
+                    style: GoogleFonts.patrickHandSc(fontSize: 11, color: isRecipeSelected ? Color(0x80000000) : Colors.black, fontWeight: FontWeight.bold, letterSpacing: 2),
                   ),
                 ),
               )
