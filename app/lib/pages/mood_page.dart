@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class MoodPage extends StatefulWidget {
   const MoodPage ({super.key});
@@ -68,7 +69,7 @@ class _MoodPageState extends State<MoodPage> {
           Positioned(
             top: screenHeight * 0.065,
             right: screenWidth * 0.05,
-            child: Text(
+            child: AutoSizeText(
               "Friends",
               style: GoogleFonts.tiltWarp(
                 fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.038,
@@ -94,7 +95,7 @@ class _MoodPageState extends State<MoodPage> {
           Positioned(
             top: screenHeight * 0.09,
             left: screenWidth * 0.065,
-            child: Text(
+            child: AutoSizeText(
               "Mood Log 🪵",
               style: GoogleFonts.tiltWarp(
                 fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.08,
@@ -138,7 +139,7 @@ class _MoodPageState extends State<MoodPage> {
                                   currentDate = DateTime(currentDate.year, currentDate.month - 1, 1);
                                 }),
                               ),
-                              Text(
+                              AutoSizeText(
                                 DateFormat.yMMMM().format(currentDate),
                                 style: GoogleFonts.signika(fontSize: 20, fontWeight: FontWeight.w500),
                               ),
@@ -163,7 +164,7 @@ class _MoodPageState extends State<MoodPage> {
                               itemCount: weekDays.length,
                               itemBuilder: (context, index) {
                                 return Center(
-                                  child: Text(
+                                  child: AutoSizeText(
                                     weekDays[index],
                                     style: GoogleFonts.signika(fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
@@ -201,14 +202,14 @@ class _MoodPageState extends State<MoodPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: Text("${_getDayOfWeek(selectedDate)}, $day/${currentDate.month}/${currentDate.year}"),
-                                          content: Text(diaryText),
+                                          title: AutoSizeText("${_getDayOfWeek(selectedDate)}, $day/${currentDate.month}/${currentDate.year}"),
+                                          content: AutoSizeText(diaryText),
                                           actions: [
                                             TextButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: Text("Close"),
+                                              child: AutoSizeText("Close"),
                                             ),
                                           ],
                                         );
@@ -221,7 +222,7 @@ class _MoodPageState extends State<MoodPage> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     alignment: Alignment.center,
-                                    child: Text(
+                                    child: AutoSizeText(
                                       "$day",
                                       style: GoogleFonts.tiltNeon(fontSize: 16, fontWeight: FontWeight.bold),
                                     ),

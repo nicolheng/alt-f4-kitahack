@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class ExercisePage extends StatefulWidget {
   const ExercisePage ({super.key});
@@ -66,7 +67,7 @@ class _ExercisePageState extends State<ExercisePage> {
                             alignment: Alignment.bottomLeft,
                             child: Padding(
                               padding: EdgeInsets.only(left: 7, bottom: 5),
-                              child: Text(
+                              child: AutoSizeText(
                                 "💪 Workout with Friends!",
                                 style: GoogleFonts.tiltWarp(
                                   fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.055,
@@ -119,7 +120,7 @@ class _ExercisePageState extends State<ExercisePage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              AutoSizeText(
                                 "Daily Goal Progress",
                                 style: GoogleFonts.signika(
                                   fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.07,
@@ -164,7 +165,7 @@ class _ExercisePageState extends State<ExercisePage> {
                                   ),
                                   Positioned(
                                     left: screenWidth * 0.8 * progress - 55, // Adjust position
-                                    child: Text(
+                                    child: AutoSizeText(
                                       "$currentKcal kcal",
                                       style: GoogleFonts.signika(fontSize: 12, color: Colors.white),
                                     ),
@@ -172,7 +173,7 @@ class _ExercisePageState extends State<ExercisePage> {
                                 ],
                               ),
                               SizedBox(height: 8),
-                              Text(
+                              AutoSizeText(
                                 "${(progress * 100).toStringAsFixed(1)}% completed",
                                 style: GoogleFonts.signika(
                                   fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.05,
@@ -181,7 +182,7 @@ class _ExercisePageState extends State<ExercisePage> {
                                 ),
                               ),
                               SizedBox(height: 5),
-                              Text(
+                              AutoSizeText(
                                 "🎯Target : $targetKcal kcal",
                                 style: GoogleFonts.signika(
                                   fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.05,
@@ -191,7 +192,7 @@ class _ExercisePageState extends State<ExercisePage> {
                               ),
                               Align(
                                 alignment: Alignment.bottomRight,
-                                child: Text(
+                                child: AutoSizeText(
                                   "$streaks❤️‍🔥",
                                   style: GoogleFonts.signika(
                                     fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.065,
@@ -208,7 +209,7 @@ class _ExercisePageState extends State<ExercisePage> {
                     SizedBox(height: 10),
                     Align(
                       alignment: Alignment.topLeft,
-                      child: Text(
+                      child: AutoSizeText(
                         "📊 Today’s Exercise Log",
                         style: GoogleFonts.signika(
                           fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.06,
@@ -312,8 +313,8 @@ class _ExercisePageState extends State<ExercisePage> {
             ),
           ),
         ),
-        SizedBox(height: 5), // Adjust spacing between button and text
-        Text(name, style: GoogleFonts.tiltNeon(color: Colors.white, fontSize: 12, fontWeight: FontWeight.normal)),
+        SizedBox(height: 5), 
+        AutoSizeText(name, style: GoogleFonts.tiltNeon(color: Colors.white, fontSize: 12, fontWeight: FontWeight.normal)),
       ],
     );
   }
@@ -333,7 +334,7 @@ class _ExercisePageState extends State<ExercisePage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+          AutoSizeText(
             icon,
             style: TextStyle(fontSize: isLandscape ? screenWidth * 0.04 : screenWidth * 0.07),
           ),
@@ -341,14 +342,14 @@ class _ExercisePageState extends State<ExercisePage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              AutoSizeText(
                 activity,
                 style: GoogleFonts.signika(
                   fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.05,
                   color: Colors.black,
                 ),
               ),
-              Text(
+              AutoSizeText(
                 "$duration min - $kcal kcal 🔥",
                 style: GoogleFonts.signika(
                   fontSize: isLandscape ? screenWidth * 0.015 : screenWidth * 0.04,

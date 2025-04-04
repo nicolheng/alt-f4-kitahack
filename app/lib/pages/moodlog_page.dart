@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class MoodLogPage extends StatefulWidget {
   const MoodLogPage ({super.key});
@@ -44,7 +45,7 @@ class _MoodLogPageState extends State<MoodLogPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
+                    AutoSizeText(
                       "🌈 How Are You Feeling Today?",
                       style: GoogleFonts.istokWeb(
                               fontSize: isLandscape ? screenWidth * 0.03 : screenWidth * 0.059,
@@ -91,15 +92,15 @@ class _MoodLogPageState extends State<MoodLogPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(28),
                                       ),
-                                      title: Text("🎉 Mood saved! "),
-                                      content: Text("Hope today was a great day! 😊"),
+                                      title: AutoSizeText("🎉 Mood saved! "),
+                                      content: AutoSizeText("Hope today was a great day! 😊"),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Navigator.pushReplacementNamed(context, "/mood");
                                           },
-                                          child: Text("OK"),
+                                          child: AutoSizeText("OK"),
                                         ),
                                       ],
                                     );
@@ -110,7 +111,7 @@ class _MoodLogPageState extends State<MoodLogPage> {
                                   backgroundColor: Color(0xFFFF9F1C),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 ),
-                              child: Text(
+                              child: AutoSizeText(
                                 "Save Mood",
                                 style:GoogleFonts.poppins(
                                   color: Colors.white,
@@ -227,11 +228,13 @@ class _MoodLogPageState extends State<MoodLogPage> {
             });
           },
           activeColor: color,
-          fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-            if (states.contains(MaterialState.selected)) {
+          fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+            if (states.contains(WidgetState.selected)) {
+              // ignore: deprecated_member_use
               return color.withOpacity(0.8);
             }
-            return color.withOpacity(0.5);
+            // ignore: deprecated_member_use
+            return color.withOpacity(0.4);
           }),
         );
   }

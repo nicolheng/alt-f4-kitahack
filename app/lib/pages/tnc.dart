@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
   @override
@@ -26,7 +27,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
                   SizedBox(height: screenHeight * 0.03),
-                  Text(
+                  AutoSizeText(
                     "Terms & Conditions",
                     style: GoogleFonts.itim(
                       color: Colors.black,
@@ -56,7 +57,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: Text(
+                      child: AutoSizeText(
                         "Back", 
                         style: TextStyle(color: Colors.white)
                       ),
@@ -105,7 +106,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          AutoSizeText(
             title,
             style: TextStyle(
               fontSize: screenWidth * 0.05,
@@ -114,7 +115,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: screenWidth * 0.02),
-          Text(
+          AutoSizeText(
             content,
             style: TextStyle(
               fontSize: screenWidth * 0.04,

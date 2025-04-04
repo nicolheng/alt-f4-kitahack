@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -49,7 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          AutoSizeText(
                             "Settings",
                             style: GoogleFonts.tiltWarp(
                               fontSize: isLandscape ? screenWidth * 0.03 : screenWidth * 0.06,
@@ -81,15 +82,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(28),
                                       ),
-                                      title: Text("Settings Saved!"),
-                                      content: Text("Thank you for updating your settings! We've noted your preferences and will tailor your experience accordingly. Get ready to enjoy a more personalized experience!"),
+                                      title: AutoSizeText("Settings Saved!"),
+                                      content: AutoSizeText("Thank you for updating your settings! We've noted your preferences and will tailor your experience accordingly. Get ready to enjoy a more personalized experience!"),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Navigator.pushReplacementNamed(context, "/welcome");
                                           },
-                                          child: Text("OK"),
+                                          child: AutoSizeText("OK"),
                                         ),
                                       ],
                                     );
@@ -100,7 +101,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   backgroundColor: Color(0xFF2EC4B6),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 ),
-                              child: Text(
+                              child: AutoSizeText(
                                 "Save Settings",
                                 style:GoogleFonts.poppins(
                                   color: Colors.white,
@@ -138,7 +139,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        AutoSizeText(
           title,
           style: GoogleFonts.mukta(
             color: Color(0xFFFFBF69),
@@ -148,7 +149,7 @@ class _SettingsPageState extends State<SettingsPage> {
         SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: selectedValue,
-          hint: Text(
+          hint: AutoSizeText(
             "Select your diet preference",
             style: GoogleFonts.mukta(
             fontSize: isLandscape ? screenWidth * 0.01 : screenWidth * 0.04,
@@ -162,7 +163,7 @@ class _SettingsPageState extends State<SettingsPage> {
           items: options.map((String option) {
             return DropdownMenuItem<String>(
               value: option,
-              child: Text(option),
+              child: AutoSizeText(option),
             );
           }).toList(),
           onChanged: onChanged,
@@ -178,7 +179,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        AutoSizeText(
           title,
           style: GoogleFonts.mukta(
             color: Color(0xFFFFBF69),
@@ -210,7 +211,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        AutoSizeText(
           "Select Your Allergies",
           style: GoogleFonts.mukta(
             color: Color(0xFFFFBF69),
@@ -251,7 +252,7 @@ class _SettingsPageState extends State<SettingsPage> {
             });
           },
         ),
-        Text(
+        AutoSizeText(
           allergy,
           style: GoogleFonts.mukta(
               color: Color(0xFF2EC4B6),
@@ -269,7 +270,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        AutoSizeText(
           "Other Allergies",
           style: GoogleFonts.mukta(
             color: Color(0xFFFFBF69),
@@ -307,7 +308,7 @@ class _SettingsPageState extends State<SettingsPage> {
           runSpacing: 4,
           children: selectedOtherAllergies.map((allergy) {
             return Chip(
-              label: Text(
+              label: AutoSizeText(
                 allergy,
                 style: TextStyle(fontSize: screenWidth * 0.035, color: Colors.black),
               ),
@@ -343,7 +344,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               children: filteredSuggestions.map((suggestion) {
                 return ListTile(
-                  title: Text(suggestion),
+                  title: AutoSizeText(suggestion),
                   onTap: () {
                     if (!selectedOtherAllergies.contains(suggestion)) {
                       setState(() {

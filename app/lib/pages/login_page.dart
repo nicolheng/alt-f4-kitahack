@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -75,7 +76,7 @@ class LoginPage extends StatelessWidget {
                                   backgroundColor: Color(0xFFFF9F1C),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
                                 ),
-                                child: Text(
+                                child: AutoSizeText(
                                   "Login",
                                   style: GoogleFonts.inter(
                                     color: Colors.white,
@@ -92,7 +93,7 @@ class LoginPage extends StatelessWidget {
                                   backgroundColor: Color(0xFFFF9F1C),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
                                 ),
-                                child: Text(
+                                child: AutoSizeText(
                                   "Sign Up",
                                   style: GoogleFonts.inter(
                                     color: Colors.white,

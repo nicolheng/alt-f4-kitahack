@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class ExerciseLogPage extends StatefulWidget {
   const ExerciseLogPage ({super.key});
@@ -43,7 +44,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
                 physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    Text(
+                    AutoSizeText(
                       "Add Your Activity",
                       style: GoogleFonts.istokWeb(
                               fontSize: isLandscape ? screenWidth * 0.03 : screenWidth * 0.065,
@@ -67,9 +68,9 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
                         children: [
                           _buildActivitySelection(),
                           SizedBox(height: 10),
-                          RichText(
-                            text: TextSpan(
-                              text: "Speed ", // Main text
+                          AutoSizeText.rich(
+                            TextSpan(
+                              text: "Speed ",
                               style: GoogleFonts.istokWeb(
                                 color: Colors.black,
                                 fontSize: isLandscape ? screenWidth * 0.025 : screenWidth * 0.05,
@@ -77,9 +78,9 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: "(optional)", // Smaller, lighter text
+                                  text: "(optional)",
                                   style: GoogleFonts.istokWeb(
-                                    color: Colors.grey, // Lighter color
+                                    color: Colors.grey,
                                     fontSize: isLandscape ? screenWidth * 0.018 : screenWidth * 0.04, // Smaller size
                                   ),
                                 ),
@@ -88,7 +89,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
                           ),
                           _buildInputRow("mph", _speedController, screenWidth, screenHeight, isLandscape),
                           SizedBox(height: 10),
-                          Text(
+                          AutoSizeText(
                             "Intensity level",
                             style: GoogleFonts.istokWeb(
                               color: Colors.black,
@@ -105,7 +106,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
                             ],
                           ),
                           SizedBox(height: 10),
-                          Text(
+                          AutoSizeText(
                             "Duration",
                             style: GoogleFonts.istokWeb(
                               color: Colors.black,
@@ -126,15 +127,15 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(28),
                                       ),
-                                      title: Text("🔥 Keep the fire burning!"),
-                                      content: Text("Your activity has been recorded."),
+                                      title: AutoSizeText("🔥 Keep the fire burning!"),
+                                      content: AutoSizeText("Your activity has been recorded."),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Navigator.pushReplacementNamed(context, "/exercise");
                                           },
-                                          child: Text("OK"),
+                                          child: AutoSizeText("OK"),
                                         ),
                                       ],
                                     );
@@ -145,7 +146,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
                                   backgroundColor: Color(0xFF2EC4B6),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 ),
-                              child: Text(
+                              child: AutoSizeText(
                                 "Save Activity",
                                 style:GoogleFonts.poppins(
                                   color: Colors.white,
@@ -212,7 +213,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        AutoSizeText(
           "Activity",
           style: GoogleFonts.istokWeb(
             color: Colors.black,
@@ -255,7 +256,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
         SizedBox(height: 8),
         if (selectedActivity != null) // Show chip only if an activity is selected
           Chip(
-            label: Text(
+            label: AutoSizeText(
               selectedActivity!,
               style: TextStyle(fontSize: screenWidth * 0.035, color: Colors.black),
             ),
@@ -291,7 +292,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
             child: Column(
               children: filteredSuggestions.map((suggestion) {
                 return ListTile(
-                  title: Text(
+                  title: AutoSizeText(
                     suggestion,
                     style: GoogleFonts.hankenGrotesk(
                     fontSize: isLandscape ? screenWidth * 0.01 : screenWidth * 0.04,
@@ -332,7 +333,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
           ),
         ),
         SizedBox(width: 8),
-        Text(
+        AutoSizeText(
           text,
           style: GoogleFonts.hankenGrotesk(
             fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.045,
@@ -356,7 +357,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
             });
           },
         ),
-        Text(
+        AutoSizeText(
           option,
           style: GoogleFonts.inter(
             fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.045,

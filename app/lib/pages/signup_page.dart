@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'tnc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -61,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: screenHeight * 0.02),
-                          Text(
+                          AutoSizeText(
                             "Register as a User",
                             style: GoogleFonts.itim(
                               color: Colors.white,
@@ -114,7 +115,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             items: ['Male', 'Female'].map((String gender) {
                               return DropdownMenuItem<String>(
                                 value: gender,
-                                child: Text(gender),
+                                child: AutoSizeText(gender),
                               );
                             }).toList(),
                             onChanged: (String? newValue) {
@@ -171,8 +172,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             controlAffinity: ListTileControlAffinity.leading,
                             activeColor: Colors.white,
                             checkColor: Colors.black,
-                            title: RichText(
-                              text: TextSpan(
+                            title: AutoSizeText.rich(
+                              TextSpan(
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: isLandscape ? screenWidth * 0.01 : screenWidth * 0.035,
@@ -218,15 +219,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(28),
                                       ),
-                                      title: Text("Sign-Up Successful!"),
-                                      content: Text("Congratulations! Your account has been created successfully."),
+                                      title: AutoSizeText("Sign-Up Successful!"),
+                                      content: AutoSizeText("Congratulations! Your account has been created successfully."),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Navigator.pushReplacementNamed(context, "/login");
                                           },
-                                          child: Text("OK"),
+                                          child: AutoSizeText("OK"),
                                         ),
                                       ],
                                     );
@@ -237,7 +238,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   backgroundColor: Colors.indigo,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 ),
-                              child: Text(
+                              child: AutoSizeText(
                                 "Register",
                                 style:GoogleFonts.inter(
                                   color: Colors.white,
