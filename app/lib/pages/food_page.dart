@@ -1,7 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class FoodPage extends StatelessWidget {
   const FoodPage({super.key});
@@ -220,7 +220,7 @@ class FoodPage extends StatelessWidget {
                     right: 10,
                     bottom: -10,
                     child: ElevatedButton(
-                      onPressed: () {print("AwMan");},
+                      onPressed: () => Navigator.pushNamed(context, "/foodhistory"), 
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
                         elevation: 3,

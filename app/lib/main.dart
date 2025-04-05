@@ -2,6 +2,7 @@ import 'package:alt_f4/pages/home_page.dart';
 import 'package:alt_f4/pages/login_page.dart';
 import 'package:alt_f4/pages/signup_page.dart';
 import 'package:alt_f4/pages/food_page.dart';
+import 'package:alt_f4/pages/food_history_page.dart';
 import 'package:alt_f4/pages/camera_page.dart';
 import 'package:alt_f4/pages/profile_page.dart';
 import 'package:alt_f4/pages/settings_page.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         "/signup": (context) => SignUpPage(),
         "/welcome": (context) => HomePage(),
         "/food": (context) => FoodPage(),
+        "/foodhistory": (context) => FoodHistoryPage(),
         "/foodcamera": (context) => CameraPage(cameras: cameras,),
         "/profile": (context) => ProfilePage(),
         "/settings": (context) => SettingsPage(),
