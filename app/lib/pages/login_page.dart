@@ -1,9 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  String? _errorMessage;
+
+  Future<void> _signIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      // Navigation handled by StreamBuilder in main.dart
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMessage = e.message;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +52,7 @@ class LoginPage extends StatelessWidget {
               height: isLandscape ? screenHeight * 0.9 : screenHeight * 0.6,
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     Image.asset('asset/login/profileIcon.png',
@@ -29,31 +60,29 @@ class LoginPage extends StatelessWidget {
                     height: screenWidth * 0.4,
                     fit: BoxFit.contain,
                     ),
-                    SizedBox(height: screenHeight * 0.03),//Spacing
-                    
-                    //Green Container for Username & Password
+                    SizedBox(height: screenHeight * 0.03),
                     Container(
-                      padding: EdgeInsets.all(screenWidth * 0.05),//Padding inside the box
+                      padding: EdgeInsets.all(screenWidth * 0.05),
                       decoration: BoxDecoration(
-                        color: Color(0xFF2EC4B6),
+                        color: const Color(0xFF2EC4B6),
                         borderRadius: BorderRadius.circular(28),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Username Field
                           TextField(
+                            controller: _emailController,
                             decoration: InputDecoration(
-                              labelText: 'Username',
+                              labelText: 'Email',
                               filled: true,
                               fillColor: Colors.grey[200],
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(11)),
                             ),
+                            keyboardType: TextInputType.emailAddress,
                           ),
                           SizedBox(height: screenHeight * 0.02),
-
-                          // Password Field
                           TextField(
+                            controller: _passwordController,
                             obscureText: true,
                             decoration: InputDecoration(
                               labelText: 'Password',
@@ -62,25 +91,28 @@ class LoginPage extends StatelessWidget {
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(11)),
                             ),
                           ),
+                          if (_errorMessage != null) ...[
+                            SizedBox(height: screenHeight * 0.02),
+                            Text(
+                              _errorMessage!,
+                              style: const TextStyle(color: Colors.red),
+                            ),
+                          ],
                           SizedBox(height: screenHeight * 0.03),
-
-                          // Buttons Row
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(context, "/welcome");
-                                },
+                                onPressed: _signIn,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFFF9F1C),
+                                  backgroundColor: const Color(0xFFFF9F1C),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
                                 ),
                                 child: AutoSizeText(
                                   "Login",
                                   style: GoogleFonts.inter(
                                     color: Colors.white,
-                                    fontSize: isLandscape ? screenWidth * 0.025 : screenWidth * 0.035, 
+                                    fontSize: isLandscape ? screenWidth * 0.025 : screenWidth * 0.035,
                                     fontWeight: isLandscape ? FontWeight.w500 : FontWeight.w400,
                                   ),
                                 ),
@@ -90,14 +122,14 @@ class LoginPage extends StatelessWidget {
                                   Navigator.pushReplacementNamed(context, "/signup");
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFFF9F1C),
+                                  backgroundColor: const Color(0xFFFF9F1C),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
                                 ),
                                 child: AutoSizeText(
                                   "Sign Up",
                                   style: GoogleFonts.inter(
                                     color: Colors.white,
-                                    fontSize: isLandscape ? screenWidth * 0.025 : screenWidth * 0.035, 
+                                    fontSize: isLandscape ? screenWidth * 0.025 : screenWidth * 0.035,
                                     fontWeight: isLandscape ? FontWeight.w500 : FontWeight.w400,
                                   ),
                                 ),
