@@ -202,14 +202,14 @@ class _MoodPageState extends State<MoodPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: AutoSizeText("${_getDayOfWeek(selectedDate)}, $day/${currentDate.month}/${currentDate.year}"),
-                                          content: AutoSizeText(diaryText),
+                                          title: Text("${_getDayOfWeek(selectedDate)}, $day/${currentDate.month}/${currentDate.year}"),
+                                          content: Text(diaryText),
                                           actions: [
                                             TextButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: AutoSizeText("Close"),
+                                              child: Text("Close"),
                                             ),
                                           ],
                                         );
@@ -264,7 +264,7 @@ class _MoodPageState extends State<MoodPage> {
                         ),
                       ),
                   Positioned(
-                    top: -90, //change
+                    top: -110, //change
                     right: -25,
                     child: Image.asset(
                       'asset/mood/panda.png',

@@ -67,16 +67,19 @@ class _MoodLogPageState extends State<MoodLogPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Wrap(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: List.generate(colorOptions.length, (i) {
-                              return _buildRadioOption(colorOptions[i], colors[i], screenWidth, screenHeight, isLandscape);
+                              return Expanded(
+                              child: _buildRadioOption(colorOptions[i], colors[i], screenWidth, screenHeight, isLandscape),
+                              );
                             }),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 15),
                           _buildInputSection("Type your mood here...", _moodController, 0.05, screenHeight, screenWidth, isLandscape, 1),
                           SizedBox(height: 10),
                           _buildInputSection("Write about your day...", _diaryController, 0.4, screenHeight, screenWidth, isLandscape, 10),
-                          SizedBox(height: 20),
+                          SizedBox(height: 5),
                           Align(
                             alignment: Alignment.center,
                             child: ElevatedButton(
@@ -92,15 +95,15 @@ class _MoodLogPageState extends State<MoodLogPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(28),
                                       ),
-                                      title: AutoSizeText("🎉 Mood saved! "),
-                                      content: AutoSizeText("Hope today was a great day! 😊"),
+                                      title: Text("🎉 Mood saved! "),
+                                      content: Text("Hope today was a great day! 😊"),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Navigator.pushReplacementNamed(context, "/mood");
                                           },
-                                          child: AutoSizeText("OK"),
+                                          child: Text("OK"),
                                         ),
                                       ],
                                     );
@@ -234,7 +237,7 @@ class _MoodLogPageState extends State<MoodLogPage> {
               return color.withOpacity(0.8);
             }
             // ignore: deprecated_member_use
-            return color.withOpacity(0.4);
+            return color.withOpacity(0.6);
           }),
         );
   }

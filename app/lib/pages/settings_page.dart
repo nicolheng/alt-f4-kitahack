@@ -82,15 +82,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(28),
                                       ),
-                                      title: AutoSizeText("Settings Saved!"),
-                                      content: AutoSizeText("Thank you for updating your settings! We've noted your preferences and will tailor your experience accordingly. Get ready to enjoy a more personalized experience!"),
+                                      title: Text("Settings Saved!"),
+                                      content: Text("Thank you for updating your settings! We've noted your preferences and will tailor your experience accordingly. Get ready to enjoy a more personalized experience!"),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Navigator.pushReplacementNamed(context, "/welcome");
                                           },
-                                          child: AutoSizeText("OK"),
+                                          child: Text("OK"),
                                         ),
                                       ],
                                     );
@@ -308,7 +308,7 @@ class _SettingsPageState extends State<SettingsPage> {
           runSpacing: 4,
           children: selectedOtherAllergies.map((allergy) {
             return Chip(
-              label: AutoSizeText(
+              label: Text(
                 allergy,
                 style: TextStyle(fontSize: screenWidth * 0.035, color: Colors.black),
               ),

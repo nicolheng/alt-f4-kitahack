@@ -127,15 +127,30 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(28),
                                       ),
-                                      title: AutoSizeText("🔥 Keep the fire burning!"),
-                                      content: AutoSizeText("Your activity has been recorded."),
+                                      title: Text("🔥 Keep the fire burning!",
+                                        style: GoogleFonts.mukta(
+                                          color: Colors.black,
+                                          fontSize: isLandscape ? screenWidth * 0.025 : screenWidth * 0.08,
+                                        ),
+                                      ),
+                                      content: Text("Your activity has been recorded.",
+                                        style: GoogleFonts.mukta(
+                                          color: Colors.black,
+                                          fontSize: isLandscape ? screenWidth * 0.025 : screenWidth * 0.045,
+                                        ),
+                                      ),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
                                             Navigator.pushReplacementNamed(context, "/exercise");
                                           },
-                                          child: AutoSizeText("OK"),
+                                          child: Text("OK",
+                                            style: GoogleFonts.mukta(
+                                              color: Colors.black,
+                                              fontSize: isLandscape ? screenWidth * 0.025 : screenWidth * 0.045,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     );
@@ -254,9 +269,9 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
         ),
         _buildActivitySuggestionsList(screenWidth, screenHeight, isLandscape),
         SizedBox(height: 8),
-        if (selectedActivity != null) // Show chip only if an activity is selected
+        if (selectedActivity != null)
           Chip(
-            label: AutoSizeText(
+            label: Text(
               selectedActivity!,
               style: TextStyle(fontSize: screenWidth * 0.035, color: Colors.black),
             ),
@@ -360,7 +375,7 @@ class _ExerciseLogPageState extends State<ExerciseLogPage> {
         AutoSizeText(
           option,
           style: GoogleFonts.inter(
-            fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.045,
+            fontSize: isLandscape ? screenWidth * 0.02 : screenWidth * 0.04,
             color: Colors.black,
             ),
         ),
