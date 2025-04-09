@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:media_scanner/media_scanner.dart';
 import 'package:alt_f4/pages/return_recipe.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CameraPage extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -211,7 +212,48 @@ class _CameraPageState extends State<CameraPage> {
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 35, 30),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Color(0xFF70C1B3), // Customize the border color if needed
+                    width: 4.0,
+                    strokeAlign: BorderSide.strokeAlignInside,
+                  ),
+                ),
+                child: IconButton(
+                  onPressed: () async {
+                      final ImagePicker picker = ImagePicker();
+                      final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
+                      if (pickedFile != null) {
+                        final File file = File(pickedFile.path);
+                        setState(() {
+                          imagesList.add(file); // optional: add to gallery preview
+                        });
+
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => ImageRecognizer(
+                              imageCaptured: file,
+                              isRecipeSelected: isRecipeSelected,
+                            ),
+                          ),
+                        );
+                      } else {
+                        print("No image selected.");
+                      }
+                    },
+                  icon: Icon(Icons.upload_file, color: Colors.black),
+                ),
+              ),
+            ),
+          ),
           // Back Button
           Align(
             alignment: Alignment.bottomLeft,
