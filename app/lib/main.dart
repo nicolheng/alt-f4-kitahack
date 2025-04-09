@@ -13,11 +13,15 @@ import 'package:alt_f4/pages/mood_page.dart';
 import 'package:alt_f4/pages/moodlog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await dotenv.load(fileName: ".env");
   final cameras = await availableCameras();
+
+  
+  
   runApp(MyApp(cameras: cameras));
 }
 

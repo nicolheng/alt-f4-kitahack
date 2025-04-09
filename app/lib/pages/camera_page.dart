@@ -1,11 +1,16 @@
 import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:media_scanner/media_scanner.dart';
 import 'package:alt_f4/pages/return_recipe.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
+import 'dart:typed_data';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+late final GenerativeModel model;
 
 class CameraPage extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -64,30 +69,101 @@ class _CameraPageState extends State<CameraPage> {
     });
   }
 
-  Future<void> startCamera(int camera) async{
-    setState(() {});
-    try{
-      if (camera+1 < widget.cameras.length){
-        cameraController = CameraController(
-          widget.cameras[camera+1],
-          ResolutionPreset.high,
-          enableAudio: false,
-        );
-        cameraValue = cameraController.initialize();
-      } else {
-        print("No Camera found at index $camera");
-      }
-    } on Exception catch (e){
-      print('Unknown Exception: $e');
-    } finally {
+  Future<void> startCamera(int camera) async {
+    try {
+      await cameraController.dispose();
+    } catch (_) {}
+
+    try {
+      cameraController = CameraController(
+        widget.cameras[camera],
+        ResolutionPreset.high,
+        enableAudio: false,
+      );
+      cameraValue = cameraController.initialize();
       setState(() {});
+    } catch (e) {
+      print('Camera init error: $e');
     }
   }
 
+  Future<File?> takePictureAndReturnFile() async {
+    try {
+      if (cameraController.value.isTakingPicture || !cameraController.value.isInitialized) {
+        return null;
+      }
+
+      await cameraController.setFlashMode(isFlashOn ? FlashMode.torch : FlashMode.off);
+      final XFile image = await cameraController.takePicture();
+
+      // Turn off flash if it was on
+      if (isFlashOn) {
+        await cameraController.setFlashMode(FlashMode.off);
+      }
+
+      final File file = await saveImage(image);
+      MediaScanner.loadMedia(path: file.path);
+      return file;
+    } catch (e) {
+      print("Error taking picture: $e");
+      return null;
+    }
+  }
+
+  Future<File?> pickImageFromGallery() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        final File file = File(pickedFile.path);
+        MediaScanner.loadMedia(path: file.path); // optional
+        return file;
+      }
+      return null;
+    } catch (e) {
+      print("Error picking image: $e");
+      return null;
+    }
+  }
+
+  void sendToGemini(File file) async{
+    try {
+    // Read image bytes
+    final Uint8List imageBytes = await file.readAsBytes();
+
+    // Create input (image + text prompt)
+    final content = [
+      Content.multi([
+        DataPart('image/png', imageBytes),
+        TextPart('What is in this image?') // 📝 Customize your prompt
+      ]),
+    ];
+
+    // Generate response
+    print('model is ready: ${model != null}');
+    final response = await model.generateContent(content);
+
+    print('Gemini Response: ${response.text}');
+    } catch (e) {
+      print('Error sending to Gemini: $e');
+    }
+  }
   @override
   void initState() {
-    startCamera(0);
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      startCamera(0);
+      initializeGemini();
+    });
+  }
+
+  void initializeGemini() {
+    final apiKey = dotenv.env['GEMINI_API_KEY'];
+    if (apiKey == null || apiKey.isEmpty) {
+      print("Missing API Key");
+      return;
+    }
+    model = GenerativeModel(model: 'gemini-pro-vision', apiKey: apiKey);
   }
 
   @override
@@ -103,7 +179,16 @@ class _CameraPageState extends State<CameraPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromRGBO(255, 255, 255, .7),
         shape: const CircleBorder(),
-        onPressed: takePicture,
+        onPressed: () async {
+          File? imageFile = await takePictureAndReturnFile();
+          if (imageFile != null) {
+            // Send to Gemini API
+            print("Image captured: ${imageFile.path}");
+            sendToGemini(imageFile);
+          } else {
+            print("No image selected or captured.");
+          }
+        },
         child: const Icon(
           Icons.camera_alt,
           size: 40,
@@ -224,8 +309,41 @@ class _CameraPageState extends State<CameraPage> {
                   border: Border.all(color: Color(0xFFFFBF69), width: 4.0, strokeAlign: BorderSide.strokeAlignInside),
                 ),
                 child: IconButton(
-                  onPressed: () => Navigator.pushNamed(context, "/foodcamera"), 
+                  onPressed: () => Navigator.pushNamed(context, "/food"), 
                   icon: Icon(Icons.arrow_back_rounded, color: Colors.black,),
+                ),
+              ),
+            ),
+          ),
+
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 35, 30),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Color(0xFF70C1B3), // Customize the border color if needed
+                    width: 4.0,
+                    strokeAlign: BorderSide.strokeAlignInside,
+                  ),
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.upload_file, color: Colors.black),
+                  onPressed: () async {
+                    // TODO: Add your upload action here
+                    print("Upload button pressed");
+                    File? imageFile = await pickImageFromGallery(); // or takePictureAndReturnFile()
+                    if (imageFile != null) {
+                      // Send to Gemini API
+                      print("Image captured: ${imageFile.path}");
+                      sendToGemini(imageFile);
+                    } else {
+                      print("No image selected or captured.");
+                    }
+                  },
                 ),
               ),
             ),
